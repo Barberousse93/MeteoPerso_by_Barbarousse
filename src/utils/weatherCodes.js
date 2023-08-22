@@ -24,8 +24,12 @@ export const weatherCodes = {
     icone: 'WeatherIcon - 2-38',
   },
   11: {
-    libelle: 'Pluie Modérée',
+    libelle: 'Pluie modérée',
     icone: 'WeatherIcon - 2-42',
+  },
+  12: {
+    libelle: 'Pluie forte',
+    icone: 'WeatherIcon - 2-37',
   },
   40: {
     libelle: 'Averses de pluie locales et faibles',
