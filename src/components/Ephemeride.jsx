@@ -4,7 +4,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import './Ephemeride.css'
-import { Link, Typography } from '@mui/material'
+import { Link, Tooltip, Typography } from '@mui/material'
 import sunrise from '../assets/icons/WeatherIcon - 1-24.png'
 import sunset from '../assets/icons/WeatherIcon - 1-23.png'
 
@@ -125,8 +125,14 @@ function Ephemeride() {
               title='Ephéùéride'
             >
               Date : {ephemeride.datetime} <br />
-              <img src={sunrise} width='24px' /> {ephemeride.sunrise} <br />
-              <img src={sunset} width='24px' /> {ephemeride.sunset} ({ephemeride.diff_duration_day}
+              <Tooltip title='Lever du soleil'>
+                <img src={sunrise} width='24px' />
+              </Tooltip>{' '}
+              {ephemeride.sunrise} <br />
+              <Tooltip title='Lever du soleil'>
+                <img src={sunset} width='24px' />
+              </Tooltip>{' '}
+              {ephemeride.sunset} ({ephemeride.diff_duration_day}
               mn)
             </Container>
 
