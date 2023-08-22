@@ -129,7 +129,7 @@ function Ephemeride() {
                 <img src={sunrise} width='24px' />
               </Tooltip>{' '}
               {ephemeride.sunrise} <br />
-              <Tooltip title='Lever du soleil'>
+              <Tooltip title='Coucher du soleil'>
                 <img src={sunset} width='24px' />
               </Tooltip>{' '}
               {ephemeride.sunset} ({ephemeride.diff_duration_day}
