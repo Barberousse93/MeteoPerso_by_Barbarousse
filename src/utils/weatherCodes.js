@@ -15,6 +15,10 @@ export const weatherCodes = {
     libelle: 'Nuageux',
     icone: 'WeatherIcon - 2-32',
   },
+  4: {
+    libelle: 'Très nuageux',
+    icone: 'WeatherIcon - 2-32',
+  },
   10: {
     libelle: 'Puie faible',
     icone: 'WeatherIcon - 2-38',
