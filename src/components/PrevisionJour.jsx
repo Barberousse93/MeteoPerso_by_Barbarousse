@@ -9,7 +9,10 @@ import { weatherCodes } from '../utils/weatherCodes'
 function PrevisionJour(data) {
   const dateISO = new Date(data.data.datetime)
   const dateLocale = dateISO.toLocaleDateString()
-  console.log(data.data.weather)
+
+  if (!weatherCodes[data.data.weather]) {
+    return <div>Code manquant : {data.data.weather} </div>
+  }
 
   return (
     <div>

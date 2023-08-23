@@ -17,7 +17,11 @@ export const weatherCodes = {
   },
   4: {
     libelle: 'Très nuageux',
-    icone: 'WeatherIcon - 2-32',
+    icone: 'Group 691',
+  },
+  5: {
+    libelle: 'Couvert',
+    icone: 'Group 678',
   },
   10: {
     libelle: 'Puie faible',
@@ -33,10 +37,10 @@ export const weatherCodes = {
   },
   40: {
     libelle: 'Averses de pluie locales et faibles',
-    icone: 'WeatherIcon - 2-43',
+    icone: 'WeatherIcon - 2-38',
   },
   41: {
     libelle: 'Averses de pluie locales',
-    icone: 'WeatherIcon - 2-43',
+    icone: 'WeatherIcon - 2-37',
   },
 }
