@@ -4,6 +4,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import './Ephemeride.css'
+import PrevisionHours from './PrevisionHours'
 import { Link, Tooltip, Typography } from '@mui/material'
 import sunrise from '../assets/icons/WeatherIcon - 1-24.png'
 import sunset from '../assets/icons/WeatherIcon - 1-23.png'
@@ -142,6 +143,7 @@ function Ephemeride() {
               <ChevronRightIcon color='disabled' />
             )}
           </Container>
+          <PrevisionHours insee={insee}></PrevisionHours>
         </Container>
       ) : null}
     </div>

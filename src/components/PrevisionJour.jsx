@@ -1,22 +1,37 @@
 import { Container, Tooltip } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import Box from '@mui/material/Box'
 import thermometre from '../assets/icons/WeatherIcon - 2-3.png'
 import rain from '../assets/icons/WeatherIcon - 1-17.png'
 import wind from '../assets/icons/WeatherIcon - 2-6.png'
 import { weatherCodes } from '../utils/weatherCodes'
+import PrevisionDetail from './PrevisionDetail'
 
 function PrevisionJour(data) {
   const dateISO = new Date(data.data.datetime)
   const dateLocale = dateISO.toLocaleDateString()
 
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+
   if (!weatherCodes[data.data.weather]) {
     return <div>Code manquant : {data.data.weather} </div>
   }
 
+  const handleClick = () => {
+    setModalIsOpen(true)
+  }
   return (
     <div>
+      {modalIsOpen && (
+        <PrevisionDetail
+          modalIsOpen={modalIsOpen}
+          setModalIsOpen={setModalIsOpen}
+          data={data.data}
+        />
+      )}
+
       <Container
+        onClick={handleClick}
         sx={{
           border: 1,
           width: 0.99,

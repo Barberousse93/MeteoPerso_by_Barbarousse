@@ -30,7 +30,7 @@ export default function TopBar() {
     <Box sx={{ flexGrow: 1 }}>
       <Box>
         <Switch name='switchTheme' checked={isDark} onChange={toggleTheme} />
-        Theme {isDark ? 'clair' : 'sombre'}
+        <label htmlFor='switchTheme'> Theme </label> {isDark ? 'clair' : 'sombre'}
       </Box>
       <AppBar position='static'>
         <Toolbar>

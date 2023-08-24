@@ -33,7 +33,7 @@ function PrevisionsList() {
     const updatedate = new Date(data.update)
     const updatedateFormat = updatedate.toLocaleDateString()
     const updateTimeFormat = updatedate.toLocaleTimeString()
-    const miseAjour = 'Mise à jour du ' + updatedateFormat + ' à ' + updateTimeFormat
+    const miseAjour = 'MAJ ' + updatedateFormat + ' à ' + updateTimeFormat
     setUpdateDate(miseAjour)
   }
   return (
@@ -43,7 +43,7 @@ function PrevisionsList() {
           {forecastList.map((item, index) => (
             <PrevisionJour key={index} data={item} />
           ))}
-          {updateDate}
+          <p style={{ fontSize: '0.8rem' }}>{updateDate}</p>
         </Container>
       ) : null}
     </div>
