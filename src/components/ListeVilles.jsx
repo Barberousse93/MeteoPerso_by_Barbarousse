@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { Box, Container, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { Container, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { store } from '../App'
 import { villeSelectionnee } from '../actions/ville.action'
 
@@ -29,6 +29,7 @@ function ListeVilles() {
   // console.log('NewState ListeVilles', NewState)
 
   async function fetchCities() {
+    console.log('Coucou !')
     const urlBase = 'https://api.meteo-concept.com/api/'
     // const token = 'd4caf9a6a50b0fa4ff74f43ecee19bcd175c673b14b2c56aa1668fb67dd62c1e'
     const token2 = 'c90958e683691c5251a4ecc2aec3e22349c67d7f262f60ed04fce5741552d263'

@@ -3,11 +3,12 @@ import { createTheme } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
 import ThemeHandler from './utils/Theming/ThemeProvider.jsx'
 import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
 import { configureStore } from '@reduxjs/toolkit'
 import rootReducer from './reducers/index.js'
-// import storage from 'redux-persist/lib/storage'
-// import { persistReducer, persistStore } from 'redux-persist'
-// import { PersistGate } from 'redux-persist/integration/react'
+import storage from 'redux-persist/lib/storage'
+import { persistReducer, persistStore } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
 import './App.css'
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
@@ -31,33 +32,34 @@ export const lightTheme = createTheme({
   },
 })
 
-// const persistConfig = {
-//   key: 'root',
-//   storage,
-// }
+const persistConfig = {
+  key: 'root',
+  storage,
+}
 
-// const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
-  // reducer: persistedReducer,
-  reducer: rootReducer,
+  reducer: persistedReducer,
+  // reducer: rootReducer,
+  middleware: [thunk],
 })
 
-// export const persistor = persistStore(store)
+export const persistor = persistStore(store)
 
 function App() {
   return (
     <>
       <Provider store={store}>
-        {/* <PersistGate loading={null} persistor={persistor}> */}
-        <ThemeHandler>
-          <CssBaseline />
-          <TopBar />
-          <ListeVilles />
-          <Ephemeride />
-          <PrevisionsList />
-        </ThemeHandler>
-        {/* </PersistGate> */}
+        <PersistGate loading={null} persistor={persistor}>
+          <ThemeHandler>
+            <CssBaseline />
+            <TopBar />
+            <ListeVilles />
+            <Ephemeride />
+            <PrevisionsList />
+          </ThemeHandler>
+        </PersistGate>
       </Provider>
     </>
   )
