@@ -37,14 +37,14 @@ function PrevisionHours(props) {
   if (erreur) return <div>Erreur de chargement des données</div>
 
   return (
-    <Box sx={{ border: 1, mt: 2, borderRadius: 3 }}>
+    <Box sx={{ border: 1, mt: 2, borderRadius: 3, p: 1 }}>
       <Box sx={{ display: 'flex', flexDirection: 'row', overflow: 'auto' }}>
         {forecast.map((item, index) => (
           <CardHour key={index} data={item}></CardHour>
         ))}
       </Box>
       <Typography variant='p'>
-        <p style={{ position: 'relative', left: '60%', fontSize: '0.7rem' }}>{updateDate}</p>
+        <p style={{ fontSize: '0.7rem' }}>{updateDate}</p>
       </Typography>
     </Box>
   )

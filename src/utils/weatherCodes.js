@@ -43,4 +43,56 @@ export const weatherCodes = {
     libelle: 'Averses de pluie locales',
     icone: 'WeatherIcon - 2-37',
   },
+  44: {
+    libelle: 'Averses de pluie',
+    icone: 'WeatherIcon - 1-18',
+  },
+  100: {
+    libelle: 'Orages faibles et locaux',
+    icone: 'WeatherIcon - 2-46',
+  },
+  101: {
+    libelle: 'Orages locaux',
+    icone: 'WeatherIcon - 2-34',
+  },
+  102: {
+    libelle: 'Orages fort et locaux',
+    icone: 'WeatherIcon - 2-34',
+  },
+  103: {
+    libelle: 'Orages faibles',
+    icone: 'Group 686',
+  },
+  104: {
+    libelle: 'Orages',
+    icone: 'Group 687',
+  },
+  105: {
+    libelle: 'Orages forts',
+    icone: 'WeatherIcon - 1-14',
+  },
+  106: {
+    libelle: 'Orages faibles et fréquents',
+    icone: 'WeatherIcon - 2-63',
+  },
+  107: {
+    libelle: 'Orages fréquents',
+    icone: 'WeatherIcon - 2-34',
+  },
+  108: {
+    libelle: 'Orages forts et fréquents',
+    icone: 'WeatherIcon - 1-14',
+  },
+  210: {
+    libelle: 'Pluie faible intermittente',
+    icone: 'Group 683',
+  },
+  211: {
+    libelle: 'Pluie modérée intermittente',
+    icone: 'Group 684',
+  },
+  212: {
+    libelle: 'Pluie forte intermittente',
+    icone: 'WeatherIcon - 2-38',
+  },
 }
