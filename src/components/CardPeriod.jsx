@@ -45,7 +45,7 @@ function CardPeriod(props) {
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             alignItems: 'center',
             marginBottom: '5px',
           }}
@@ -59,7 +59,7 @@ function CardPeriod(props) {
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             alignItems: 'center',
             marginBottom: '5px',
           }}
@@ -74,7 +74,7 @@ function CardPeriod(props) {
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             alignItems: 'center',
             marginBottom: '5px',
           }}
