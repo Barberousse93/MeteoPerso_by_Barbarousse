@@ -7,14 +7,16 @@ function PrevisionsList() {
   const insee = useSelector((state) => state.ville.villeSelectionnee)
   const [forecastList, setForecastList] = useState([])
   const [updateDate, setUpdateDate] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     if (insee !== 0) {
       fetchPrevisions()
     }
-  }, [insee])
+  }, [])
 
   async function fetchPrevisions() {
+    setIsLoading(true)
     const urlBase = 'https://api.meteo-concept.com/api/'
     // const token = 'd4caf9a6a50b0fa4ff74f43ecee19bcd175c673b14b2c56aa1668fb67dd62c1e'
     const token2 = 'c90958e683691c5251a4ecc2aec3e22349c67d7f262f60ed04fce5741552d263'
@@ -35,9 +37,11 @@ function PrevisionsList() {
     const updateTimeFormat = updatedate.toLocaleTimeString()
     const miseAjour = 'MAJ ' + updatedateFormat + ' à ' + updateTimeFormat
     setUpdateDate(miseAjour)
+    setIsLoading(false)
   }
   return (
     <div>
+      {isLoading ? <div>Chargement en cours...</div> : null}
       {insee !== 0 ? (
         <Container id='box' sx={{ border: 1, width: 1 / 2, borderRadius: '5px', p: 2, mt: 2 }}>
           {forecastList.map((item, index) => (

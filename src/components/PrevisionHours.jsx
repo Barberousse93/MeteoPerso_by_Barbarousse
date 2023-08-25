@@ -7,12 +7,14 @@ function PrevisionHours(props) {
   const [erreur, setErreur] = useState(false)
   const [forecast, setForecast] = useState([])
   const [updateDate, setUpdateDate] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     fetchPrevisonHours()
   }, [])
 
   async function fetchPrevisonHours() {
+    setIsLoading(true)
     const urlBase = 'https://api.meteo-concept.com/api/'
     const token = 'd4caf9a6a50b0fa4ff74f43ecee19bcd175c673b14b2c56aa1668fb67dd62c1e'
     // const token2 = 'c90958e683691c5251a4ecc2aec3e22349c67d7f262f60ed04fce5741552d263'
@@ -32,21 +34,25 @@ function PrevisionHours(props) {
     const updateTimeFormat = updatedate.toLocaleTimeString()
     const miseAjour = 'MAJ ' + updatedateFormat + ' à ' + updateTimeFormat
     setUpdateDate(miseAjour)
+    setIsLoading(false)
   }
 
   if (erreur) return <div>Erreur de chargement des données</div>
 
   return (
-    <Box sx={{ border: 1, mt: 2, borderRadius: 3, p: 1 }}>
-      <Box sx={{ display: 'flex', flexDirection: 'row', overflow: 'auto' }}>
-        {forecast.map((item, index) => (
-          <CardHour key={index} data={item}></CardHour>
-        ))}
+    <>
+      {isLoading ? <div>Chargement en cours</div> : null}
+      <Box sx={{ border: 1, mt: 2, borderRadius: 3, p: 1 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', overflow: 'auto' }}>
+          {forecast.map((item, index) => (
+            <CardHour key={index} data={item}></CardHour>
+          ))}
+        </Box>
+        <Typography variant='p'>
+          <p style={{ fontSize: '0.7rem' }}>{updateDate}</p>
+        </Typography>
       </Box>
-      <Typography variant='p'>
-        <p style={{ fontSize: '0.7rem' }}>{updateDate}</p>
-      </Typography>
-    </Box>
+    </>
   )
 }
 

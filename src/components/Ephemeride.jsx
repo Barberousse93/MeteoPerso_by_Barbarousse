@@ -16,6 +16,7 @@ function Ephemeride() {
   const [jour, setJour] = useState(0)
   const [leftIsVisible, setLeftIsVisible] = useState(true)
   const [rightIsVisible, setRightIsVisible] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     if (insee !== 0) {
@@ -35,6 +36,7 @@ function Ephemeride() {
   }, [insee, jour])
 
   async function fetchEphemeride() {
+    setIsLoading(true)
     const urlBase = 'https://api.meteo-concept.com/api/'
     const token = 'd4caf9a6a50b0fa4ff74f43ecee19bcd175c673b14b2c56aa1668fb67dd62c1e'
     // const token2 = 'c90958e683691c5251a4ecc2aec3e22349c67d7f262f60ed04fce5741552d263'
@@ -57,6 +59,7 @@ function Ephemeride() {
     const newEphemeride = { ...ephemeride }
     newEphemeride.datetime = dateFormat
     setEphemeride(newEphemeride)
+    setIsLoading(false)
   }
 
   const bloc = document.querySelector('#bloc')
@@ -83,6 +86,7 @@ function Ephemeride() {
 
   return (
     <div>
+      {isLoading ? <div>Chargement en cours...</div> : null}
       {insee !== 0 ? (
         <Container id='box' sx={{ border: 1, width: 1 / 2, borderRadius: '5px', p: 2, mt: 2 }}>
           <Typography variant='h3'>{infos.name} </Typography>
