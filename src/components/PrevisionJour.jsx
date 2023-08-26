@@ -40,6 +40,7 @@ function PrevisionJour(data) {
           mt: 2,
           display: 'flex',
           flexDirection: 'row',
+          overflow: 'auto',
         }}
       >
         <Tooltip title={weatherCodes[data.data.weather].libelle} arrow>

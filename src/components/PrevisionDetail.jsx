@@ -124,11 +124,12 @@ function PrevisionDetail(props) {
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                justifyContent: 'space-around',
+                // justifyContent: 'space-evenly',
                 m: 1,
                 p: 1,
                 border: 1,
                 borderRadius: 3,
+                overflow: 'auto',
               }}
             >
               {forecast &&
