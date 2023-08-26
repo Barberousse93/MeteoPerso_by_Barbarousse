@@ -5,15 +5,14 @@ import PrevisionJour from './PrevisionJour'
 
 function PrevisionsList() {
   const insee = useSelector((state) => state.ville.villeSelectionnee)
+  const [erreur, setErreur] = useState(false)
   const [forecastList, setForecastList] = useState([])
   const [updateDate, setUpdateDate] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    if (insee !== 0) {
-      fetchPrevisions()
-    }
-  }, [])
+    fetchPrevisions()
+  }, [insee])
 
   async function fetchPrevisions() {
     setIsLoading(true)
@@ -30,15 +29,17 @@ function PrevisionsList() {
     }
     const data = await response.json()
     const forecast = data.forecast
-    setForecastList(forecast)
-
     const updatedate = new Date(data.update)
     const updatedateFormat = updatedate.toLocaleDateString()
     const updateTimeFormat = updatedate.toLocaleTimeString()
     const miseAjour = 'MAJ ' + updatedateFormat + ' à ' + updateTimeFormat
+    setForecastList(forecast)
     setUpdateDate(miseAjour)
     setIsLoading(false)
   }
+
+  if (erreur) return <div>Erreur de chargement des données</div>
+
   return (
     <div>
       {isLoading ? <div>Chargement en cours...</div> : null}

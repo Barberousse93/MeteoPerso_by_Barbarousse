@@ -5,8 +5,16 @@ import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import CardPeriod from './CardPeriod'
 import Box from '@mui/material/Box'
+import Divider from '@mui/material/Divider'
+import Grid from '@mui/material/Grid'
+import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
-import { Divider, Grid } from '@mui/material'
+import thermometre from '../assets/icons/WeatherIcon - 2-3.png'
+import rain from '../assets/icons/WeatherIcon - 1-17.png'
+import frost from '../assets/icons/WeatherIcon - 1-21.png'
+import fog from '../assets/icons/WeatherIcon - 2-27.png'
+import wind from '../assets/icons/WeatherIcon - 2-6.png'
+import NavigationIcon from '@mui/icons-material/Navigation'
 
 const PaperStyle = {
   position: 'absolute',
@@ -26,8 +34,6 @@ function PrevisionDetail(props) {
   const [updateDate, setUpdateDate] = useState('')
   const [forecast, setForecast] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-
-  console.log(props)
 
   useEffect(() => {
     fetchPeriodes()
@@ -85,32 +91,110 @@ function PrevisionDetail(props) {
                 Prévisions détaillées
               </Typography>
             </Divider>
-            <Box sx={{ border: 1, borderRadius: 3, p: 1 }}>
+            <Box sx={{ border: 1, borderRadius: 3, p: 1, m: 1, overflow: 'auto' }}>
               <Grid container spacing={2}>
                 <Grid item xs={4}>
-                  <p>Temp min :{props.data.tmin}°</p>
-                  <p>Temp max : {props.data.tmax}°</p>
+                  {/* Température */}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Tooltip title='Température'>
+                      <img src={thermometre} width='32px' style={{ margin: '10px' }} />
+                    </Tooltip>
+                    <Box>
+                      <p> min :{props.data.tmin}°</p>
+                      <p> max : {props.data.tmax}°</p>
+                    </Box>
+                  </Box>
+                </Grid>
+                <Grid
+                  item
+                  xs={4}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {/* Pluie */}
+                  <Tooltip title='Prévisions relatives à la pluie'>
+                    <img src={rain} width='24px' style={{ margin: '10px' }} />
+                  </Tooltip>
+                  <Box>
+                    <p>Probabilité : {props.data.probarain}% </p>
+                    <p>Cumul : {props.data.rr10}mm</p>
+                    <p>Cumul max : {props.data.rr1}mm</p>
+                  </Box>
                 </Grid>
                 <Grid item xs={4}>
-                  <p>Probalité pluie : {props.data.probarain}% </p>
-                  <p>Cumul de pluie : {props.data.rr10}mm</p>
-                  <p>Cumul de pluie max : {props.data.rr1}mm</p>
-                </Grid>
-                <Grid item xs={4}>
-                  <p>Probalite gel : {props.data.probafrost}%</p>
-                  <p>Probilité brouillard : {props.data.probafog}%</p>
+                  {/* Gel / brouillard */}
+                  <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                    <Tooltip title='Probabilité de gel'>
+                      <img src={frost} width='24px' style={{ margin: '10px' }} />
+                    </Tooltip>
+                    <p>Probalité : {props.data.probafrost}%</p>
+                  </Box>
+                  <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                    <Tooltip title='Probabilité de brouillard'>
+                      <img src={fog} width='24px' style={{ margin: '10px' }} />
+                    </Tooltip>
+                    <p>Probabilité : {props.data.probafog}%</p>
+                  </Box>
                 </Grid>
               </Grid>
 
-              <Grid container spacing={2} sx={{ mt: 1 }}>
-                <Grid item xs={6}>
-                  <p>Vent moyen : {props.data.wind10m}km/h</p>
-                  <p>Rafales : {props.data.gust10m}km/h</p>
-                  <p>Direction : {props.data.dirwind10m}°</p>
+              <Grid
+                container
+                spacing={2}
+                sx={{
+                  mt: 1,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
+              >
+                <Grid
+                  item
+                  xs={6}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Tooltip title='Prévisions relatives au vent'>
+                    <img src={wind} width='48px' style={{ margin: '10px' }} />
+                  </Tooltip>
+                  <Box>
+                    <p>Vitesse moyenne : {props.data.wind10m}km/h</p>
+                    <p>Rafales : {props.data.gust10m}km/h</p>
+                    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                      <p>Direction :</p>
+                      <NavigationIcon
+                        sx={{ transform: `rotate(${props.data.dirwind10m}deg)`, ml: 1 }}
+                      />
+                    </Box>
+                  </Box>
                 </Grid>
-                <Grid item xs={6}>
-                  <p>Probabilite vent fort : {props.data.probawind70}%</p>
-                  <p>Probabilite vent très fort : {props.data.probawind100}%</p>
+                <Grid
+                  item
+                  xs={6}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyItems: 'center',
+                  }}
+                >
+                  <p>Proba. vent fort (70 à 100km/h) : {props.data.probawind70}%</p>
+                  <p>Proba. vent très fort (&gt;100km/h) : {props.data.probawind100}%</p>
                 </Grid>
               </Grid>
             </Box>

@@ -51,8 +51,8 @@ function PrevisionJour(data) {
             style={{ marginRight: '10px' }}
           />
         </Tooltip>
-        <Box>
-          {data.data.day === 0 ? "Aujourd'hui" : data.data.day === 1 ? 'Demain' : dateLocale}
+        <Box sx={{ display: 'flex' }}>
+          <p>{data.data.day === 0 ? "Aujourd'hui" : data.data.day === 1 ? 'Demain' : dateLocale}</p>
           <br />
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Box sx={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}>
