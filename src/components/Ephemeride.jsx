@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import './Ephemeride.css'
 import PrevisionHours from './PrevisionHours'
-import { Link, Tooltip, Typography } from '@mui/material'
+import { Link, Skeleton, Tooltip, Typography, Box } from '@mui/material'
 import sunrise from '../assets/icons/WeatherIcon - 1-24.png'
 import sunset from '../assets/icons/WeatherIcon - 1-23.png'
 
@@ -59,7 +59,9 @@ function Ephemeride() {
     const newEphemeride = { ...ephemeride }
     newEphemeride.datetime = dateFormat
     setEphemeride(newEphemeride)
-    setIsLoading(false)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
   }
 
   const bloc = document.querySelector('#bloc')
@@ -86,34 +88,44 @@ function Ephemeride() {
 
   return (
     <div>
-      {isLoading ? <div>Chargement en cours...</div> : null}
+      {/* {isLoading ? <div>Chargement en cours...</div> : null} */}
       {insee !== 0 ? (
         <Container id='box' sx={{ border: 1, width: 1 / 2, borderRadius: '5px', p: 2, mt: 2 }}>
-          <Typography variant='h3'>{infos.name} </Typography>
-          <br />
-          <Typography variant='h6' style={{ display: 'inline' }}>
-            Latitude :{' '}
-          </Typography>
-          {infos.latitude} /{' '}
-          <Typography variant='h6' style={{ display: 'inline' }}>
-            Longitude :{' '}
-          </Typography>
-          {infos.longitude}{' '}
-          {
-            <Link
-              href={`https://www.google.fr/maps/@${infos.latitude},${infos.longitude},13z?entry=ttu`}
-              target='_blank'
-              underline='hover'
-            >
-              (Carte)
-            </Link>
-          }
-          <br />
-          <Typography variant='h6' style={{ display: 'inline' }}>
-            Altitude :{' '}
-          </Typography>
-          {infos.altitude}m<br />
-          <Container sx={{ display: 'flex', alignItems: 'center', width: 0.75 }}>
+          <Typography variant='h3'>{isLoading ? <Skeleton width='50%' /> : infos.name} </Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <Typography variant='h6' style={{ display: 'inline' }}>
+              <p style={{ marginRight: '5px' }}>Latitude : </p>
+            </Typography>
+            {isLoading ? <Skeleton width={100} /> : <p>{infos.latitude} </p>}
+            <p> / </p>
+            <Typography variant='h6' style={{ display: 'inline' }}>
+              <p style={{ marginRight: '5px' }}>Longitude : </p>
+            </Typography>
+            {isLoading ? <Skeleton width={100} /> : infos.longitude}
+
+            {
+              <Link
+                href={`https://www.google.fr/maps/@${infos.latitude},${infos.longitude},13z?entry=ttu`}
+                target='_blank'
+                underline='hover'
+              >
+                {isLoading ? (
+                  <Skeleton width={30} />
+                ) : (
+                  <p style={{ marginLeft: '5px' }}> (Carte)</p>
+                )}
+              </Link>
+            }
+          </Box>
+
+          <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <Typography variant='h6' style={{ display: 'inline' }}>
+              <p style={{ marginRight: '5px' }}>Altitude : </p>
+            </Typography>
+            {isLoading ? <Skeleton width={20} /> : infos.altitude + 'm'}
+          </Box>
+
+          <Container sx={{ display: 'flex', alignItems: 'center', width: 0.9 }}>
             {leftIsVisible ? (
               <ChevronLeftIcon
                 style={{ cursor: 'pointer' }}
@@ -129,16 +141,22 @@ function Ephemeride() {
               id='bloc'
               title='Ephéùéride'
             >
-              Date : {ephemeride.datetime} <br />
-              <Tooltip title='Lever du soleil'>
-                <img src={sunrise} width='24px' />
-              </Tooltip>{' '}
-              {ephemeride.sunrise} <br />
-              <Tooltip title='Coucher du soleil'>
-                <img src={sunset} width='24px' />
-              </Tooltip>{' '}
-              {ephemeride.sunset} ({ephemeride.diff_duration_day}
-              mn)
+              {isLoading ? <Skeleton width={150} /> : <p>Date : {ephemeride.datetime}</p>}
+              {isLoading ? (
+                <Skeleton width={200} height={75} />
+              ) : (
+                <Box>
+                  <Tooltip title='Lever du soleil'>
+                    <img src={sunrise} width='24px' />
+                  </Tooltip>
+                  {ephemeride.sunrise} <br />
+                  <Tooltip title='Coucher du soleil'>
+                    <img src={sunset} width='24px' />
+                  </Tooltip>{' '}
+                  {ephemeride.sunset} ({ephemeride.diff_duration_day}
+                  mn)
+                </Box>
+              )}
             </Container>
 
             {rightIsVisible ? (

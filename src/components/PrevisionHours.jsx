@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box'
 import React, { useEffect, useState } from 'react'
 import CardHour from './CardHour'
-import { Typography } from '@mui/material'
+import { Typography, Skeleton } from '@mui/material'
 
 function PrevisionHours(props) {
   const [erreur, setErreur] = useState(false)
@@ -34,23 +34,33 @@ function PrevisionHours(props) {
     const updateTimeFormat = updatedate.toLocaleTimeString()
     const miseAjour = 'MAJ ' + updatedateFormat + ' à ' + updateTimeFormat
     setUpdateDate(miseAjour)
-    setIsLoading(false)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
   }
 
   if (erreur) return <div>Erreur de chargement des données</div>
 
   return (
     <>
-      {isLoading ? <div>Chargement en cours</div> : null}
+      {/* {isLoading ? <div>Chargement en cours</div> : null} */}
       <Box sx={{ border: 1, mt: 2, borderRadius: 3, p: 1 }}>
         <Box sx={{ display: 'flex', flexDirection: 'row', overflow: 'auto' }}>
-          {forecast.map((item, index) => (
-            <CardHour key={index} data={item}></CardHour>
-          ))}
+          {forecast.map((item, index) =>
+            isLoading ? (
+              <Skeleton key={index} width={50} height={200} sx={{ m: 1 }}></Skeleton>
+            ) : (
+              <CardHour key={index} data={item}></CardHour>
+            ),
+          )}
         </Box>
-        <Typography variant='p'>
-          <p style={{ fontSize: '0.7rem' }}>{updateDate}</p>
-        </Typography>
+        {isLoading ? (
+          <Skeleton variant='p' />
+        ) : (
+          <Typography variant='p'>
+            <p style={{ fontSize: '0.7rem' }}>{updateDate}</p>
+          </Typography>
+        )}
       </Box>
     </>
   )

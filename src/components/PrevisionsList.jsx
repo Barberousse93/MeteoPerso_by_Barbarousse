@@ -1,4 +1,4 @@
-import { Container } from '@mui/material'
+import { Container, Skeleton } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import PrevisionJour from './PrevisionJour'
@@ -35,20 +35,30 @@ function PrevisionsList() {
     const miseAjour = 'MAJ ' + updatedateFormat + ' à ' + updateTimeFormat
     setForecastList(forecast)
     setUpdateDate(miseAjour)
-    setIsLoading(false)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
   }
 
   if (erreur) return <div>Erreur de chargement des données</div>
 
   return (
     <div>
-      {isLoading ? <div>Chargement en cours...</div> : null}
+      {/* {isLoading ? <div>Chargement en cours...</div> : null} */}
       {insee !== 0 ? (
         <Container id='box' sx={{ border: 1, width: 1 / 2, borderRadius: '5px', p: 2, mt: 2 }}>
-          {forecastList.map((item, index) => (
-            <PrevisionJour key={index} data={item} />
-          ))}
-          <p style={{ fontSize: '0.8rem' }}>{updateDate}</p>
+          {forecastList.map((item, index) =>
+            isLoading ? (
+              <Skeleton key={index} width='95%' height={100} sx={{ m: 1 }}></Skeleton>
+            ) : (
+              <PrevisionJour key={index} data={item} />
+            ),
+          )}
+          {isLoading ? (
+            <Skeleton variant='p'></Skeleton>
+          ) : (
+            <p style={{ fontSize: '0.8rem' }}>{updateDate}</p>
+          )}
         </Container>
       ) : null}
     </div>

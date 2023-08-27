@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { Container, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { Container, FormControl, InputLabel, MenuItem, Select, Skeleton } from '@mui/material'
 import { store } from '../App'
 import { villeSelectionnee } from '../actions/ville.action'
 
@@ -50,7 +50,9 @@ function ListeVilles() {
       setListe(liste)
       setIsVisible(true)
     }
-    setIsLoading(false)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
   }
 
   if (erreur) {
@@ -63,31 +65,35 @@ function ListeVilles() {
 
   return (
     <div>
-      {isLoading ? <div>Chargement en cours...</div> : null}
+      {/* {isLoading ? <div>Chargement en cours...</div> : null} */}
       {isVisible ? (
         <Container sx={{ width: 1 / 2, display: 'flex', justifyContent: 'center' }}>
-          <FormControl fullWidth sx={{ margin: 2, left: '25%' }}>
-            <InputLabel variant='outlined'>Sélectionnez dans la liste</InputLabel>
-            <Select
-              value={villeChoisie}
-              onChange={handleChange}
-              defaultValue=''
-              sx={{ width: 1 / 2 }}
-              label='Sélectionnez dans la liste'
-            >
-              {liste.map((item) => (
-                <MenuItem
-                  key={item.insee}
-                  value={item.insee}
-                  onClick={() => {
-                    store.dispatch(villeSelectionnee(item.insee), setIsVisible(false))
-                  }}
-                >
-                  {item.name} ({item.cp})
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          {isLoading ? (
+            <Skeleton width={300} height={50} />
+          ) : (
+            <FormControl fullWidth sx={{ margin: 2, left: '25%' }}>
+              <InputLabel variant='outlined'>Sélectionnez dans la liste</InputLabel>
+              <Select
+                value={villeChoisie}
+                onChange={handleChange}
+                defaultValue=''
+                sx={{ width: 1 / 2 }}
+                label='Sélectionnez dans la liste'
+              >
+                {liste.map((item) => (
+                  <MenuItem
+                    key={item.insee}
+                    value={item.insee}
+                    onClick={() => {
+                      store.dispatch(villeSelectionnee(item.insee), setIsVisible(false))
+                    }}
+                  >
+                    {item.name} ({item.cp})
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
         </Container>
       ) : null}
     </div>

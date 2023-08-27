@@ -9,6 +9,7 @@ import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
+import Skeleton from '@mui/material/Skeleton'
 import thermometre from '../assets/icons/WeatherIcon - 2-3.png'
 import rain from '../assets/icons/WeatherIcon - 1-17.png'
 import frost from '../assets/icons/WeatherIcon - 1-21.png'
@@ -67,7 +68,9 @@ function PrevisionDetail(props) {
     const updateTimeFormat = updatedate.toLocaleTimeString()
     const miseAjour = 'MAJ ' + updatedateFormat + ' à ' + updateTimeFormat
     setUpdateDate(miseAjour)
-    setIsLoading(false)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 1000)
   }
   // console.log(props)
   const dateISO = new Date(props.data.datetime)
@@ -78,7 +81,7 @@ function PrevisionDetail(props) {
   }
   return (
     <>
-      {isLoading ? <div>Chargement en cours...</div> : null}
+      {/* {isLoading ? <div>Chargement en cours...</div> : null} */}
       <Modal open={props.modalIsOpen} onClose={handleClose}>
         <Paper style={PaperStyle}>
           <Box sx={{ border: 1, m: 1, p: 1, borderRadius: 3 }}>
@@ -216,8 +219,13 @@ function PrevisionDetail(props) {
                 overflow: 'auto',
               }}
             >
-              {forecast &&
-                forecast.map((item, index) => <CardPeriod key={index} dataPeriod={item} />)}
+              {forecast.map((item, index) =>
+                isLoading ? (
+                  <Skeleton width={250} height={300} sx={{ m: 1 }} />
+                ) : (
+                  <CardPeriod key={index} dataPeriod={item} />
+                ),
+              )}
             </Box>
             <Typography variant='p'>
               <p style={{ fontSize: '0.7rem' }}>{updateDate}</p>
