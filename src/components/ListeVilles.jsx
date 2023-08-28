@@ -8,10 +8,11 @@ import { villeSelectionnee } from '../actions/ville.action'
 function ListeVilles() {
   const [liste, setListe] = useState([])
   const [erreur, setErreur] = useState('')
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
 
   const Ville = useSelector((state) => state.ville.villeRecherchee)
+  const insee = useSelector((state) => state.ville.villeSelectionnee)
 
   useEffect(() => {
     if (Ville.length === 0) {
@@ -19,6 +20,15 @@ function ListeVilles() {
     }
     fetchCities()
   }, [Ville])
+
+  useEffect(() => {
+    console.log('Cousou !', isVisible, insee)
+    if (insee !== 0) {
+      setIsVisible(false)
+    } else {
+      setIsVisible(true)
+    }
+  }, [insee])
 
   const [villeChoisie, setVilleChoisie] = useState()
 
@@ -46,9 +56,10 @@ function ListeVilles() {
 
     if (liste.length === 1) {
       store.dispatch(villeSelectionnee(liste[0].insee))
+      setIsVisible(false)
     } else {
       setListe(liste)
-      setIsVisible(true)
+      // setIsVisible(true)
     }
     setIsLoading(false)
   }
@@ -57,7 +68,7 @@ function ListeVilles() {
     return <div>{erreur} </div>
   }
 
-  if (Ville.length !== 0 && liste.length == 0) {
+  if ((Ville.length !== 0) & (liste.length == 0)) {
     return <div>Aucun résultat...</div>
   }
 
