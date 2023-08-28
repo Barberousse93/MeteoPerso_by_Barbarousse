@@ -68,9 +68,7 @@ function PrevisionDetail(props) {
     const updateTimeFormat = updatedate.toLocaleTimeString()
     const miseAjour = 'MAJ ' + updatedateFormat + ' à ' + updateTimeFormat
     setUpdateDate(miseAjour)
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 1000)
+    setIsLoading(false)
   }
   // console.log(props)
   const dateISO = new Date(props.data.datetime)

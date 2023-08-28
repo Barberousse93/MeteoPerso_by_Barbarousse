@@ -50,9 +50,7 @@ function ListeVilles() {
       setListe(liste)
       setIsVisible(true)
     }
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 1000)
+    setIsLoading(false)
   }
 
   if (erreur) {

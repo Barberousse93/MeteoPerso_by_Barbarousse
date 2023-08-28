@@ -59,9 +59,7 @@ function Ephemeride() {
     const newEphemeride = { ...ephemeride }
     newEphemeride.datetime = dateFormat
     setEphemeride(newEphemeride)
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 1000)
+    setIsLoading(false)
   }
 
   const bloc = document.querySelector('#bloc')

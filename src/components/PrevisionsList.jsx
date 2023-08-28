@@ -35,9 +35,7 @@ function PrevisionsList() {
     const miseAjour = 'MAJ ' + updatedateFormat + ' à ' + updateTimeFormat
     setForecastList(forecast)
     setUpdateDate(miseAjour)
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 1000)
+    setIsLoading(false)
   }
 
   if (erreur) return <div>Erreur de chargement des données</div>
