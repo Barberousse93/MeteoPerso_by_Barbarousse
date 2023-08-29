@@ -9,8 +9,11 @@ import Switch from '@mui/material/Switch'
 import SearchIcon from '@mui/icons-material/Search'
 import ClearIcon from '@mui/icons-material/Clear'
 import ThemeContext from '../utils/Theming/ThemeContext'
+import IconButton from '@mui/material/IconButton'
+import MenuIcon from '@mui/icons-material/Menu'
 import { store } from '../App'
 import { villeRecherchee, villeSelectionnee } from '../actions/ville.action'
+import { Menu, MenuItem } from '@mui/material'
 
 export default function TopBar() {
   const [ville, setVille] = useState('')
@@ -20,7 +23,15 @@ export default function TopBar() {
     store.dispatch(villeSelectionnee(0))
     setVille('')
   }
+  const [anchorEl, setAnchorEl] = useState(null)
+  const open = Boolean(anchorEl)
 
+  const handleClickMenu = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
   // const NewState = store.getState()
   // console.log('NewState', NewState)
 
@@ -28,12 +39,31 @@ export default function TopBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Box>
+      {/* <Box>
         <Switch name='switchTheme' checked={isDark} onChange={toggleTheme} />
         <label htmlFor='switchTheme'> Theme </label> {isDark ? 'clair' : 'sombre'}
-      </Box>
+      </Box> */}
       <AppBar position='static'>
         <Toolbar>
+          <IconButton
+            size='large'
+            edge='start'
+            color='inherit'
+            aria-label='menu'
+            sx={{ mr: 2 }}
+            onClick={handleClickMenu}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+            <MenuItem onClick={handleClose}>
+              <Box>
+                <Switch name='switchTheme' checked={isDark} onChange={toggleTheme} />
+                <label htmlFor='switchTheme'> Theme </label> {isDark ? 'clair' : 'sombre'}
+              </Box>
+            </MenuItem>
+          </Menu>
+
           <Typography
             variant='h6'
             noWrap
