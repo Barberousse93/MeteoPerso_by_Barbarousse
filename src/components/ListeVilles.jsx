@@ -54,7 +54,7 @@ function ListeVilles() {
 
     if (liste.length === 1) {
       store.dispatch(villeSelectionnee(liste[0].insee))
-      store.dispatch(addHistorique(liste[0].insee, liste[0].name))
+      store.dispatch(addHistorique({ insee: liste[0].insee, name: liste[0].name }))
       setIsVisible(false)
     } else {
       setListe(liste)

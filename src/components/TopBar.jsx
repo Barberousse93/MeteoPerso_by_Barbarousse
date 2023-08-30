@@ -8,14 +8,15 @@ import InputAdornment from '@mui/material/InputAdornment'
 import Switch from '@mui/material/Switch'
 import SearchIcon from '@mui/icons-material/Search'
 import ClearIcon from '@mui/icons-material/Clear'
+import DeleteIcon from '@mui/icons-material/Delete'
 import ThemeContext from '../utils/Theming/ThemeContext'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import { store } from '../App'
-import { villeRecherchee, villeSelectionnee } from '../actions/ville.action'
+import { deleteHistorique, villeRecherchee, villeSelectionnee } from '../actions/ville.action'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import { Divider } from '@mui/material'
+import { Divider, ListItemIcon } from '@mui/material'
 import { useSelector } from 'react-redux'
 
 export default function TopBar() {
@@ -66,11 +67,31 @@ export default function TopBar() {
             <MenuItem disabled>
               <em>Historique</em>
             </MenuItem>
+
             {histo.map((item) => (
-              <MenuItem key={item.insee} value={item.insee} onClick={handleClickMenutem}>
-                {item.name}
-              </MenuItem>
+              <Box
+                key={item.insee}
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <MenuItem value={item.insee} onClick={handleClickMenutem}>
+                  {item.name}
+                </MenuItem>
+                <ListItemIcon
+                  sx={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    store.dispatch(deleteHistorique(item.insee))
+                  }}
+                >
+                  <DeleteIcon />
+                </ListItemIcon>
+              </Box>
             ))}
+
             <Divider></Divider>
             <MenuItem>
               <Switch

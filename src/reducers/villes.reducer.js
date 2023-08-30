@@ -1,4 +1,9 @@
-import { VILLE_RECHERCHEE, VILLE_SELECTIONNEE, ADD_HISTORIQUE } from '../actions/ville.action.js'
+import {
+  VILLE_RECHERCHEE,
+  VILLE_SELECTIONNEE,
+  ADD_HISTORIQUE,
+  DELETE_HISTORIQUE,
+} from '../actions/ville.action.js'
 
 const initialState = {
   villeRecherchee: '',
@@ -19,18 +24,25 @@ export function ville(state = initialState, action) {
         villeSelectionnee: action.payload,
       }
     case ADD_HISTORIQUE:
-      console.log('action.payload.insee', action.payload.insee)
-      const histo = [...state.historique]
+      const addHisto = [...state.historique]
       // console.log('histo', histo)
-      for (let i = 0; i < histo.length; i++) {
-        if (histo[i].insee === action.payload.insee) {
-          console.log('pas ajouté')
+      for (let i = 0; i < addHisto.length; i++) {
+        if (addHisto[i].insee === action.payload.insee) {
+          // console.log('pas ajouté')
           return state
         }
       }
       return {
         ...state,
         historique: [...state.historique, action.payload],
+      }
+
+    case DELETE_HISTORIQUE:
+      const deleteHisto = [...state.historique]
+      const newHisto = deleteHisto.filter((ville) => ville.insee !== action.payload)
+      return {
+        ...state,
+        historique: newHisto,
       }
 
     default:
