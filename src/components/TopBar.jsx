@@ -13,7 +13,10 @@ import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import { store } from '../App'
 import { villeRecherchee, villeSelectionnee } from '../actions/ville.action'
-import { Menu, MenuItem } from '@mui/material'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import { Divider } from '@mui/material'
+import { useSelector } from 'react-redux'
 
 export default function TopBar() {
   const [ville, setVille] = useState('')
@@ -37,30 +40,46 @@ export default function TopBar() {
 
   const { isDark, toggleTheme } = useContext(ThemeContext)
 
+  const histo = useSelector((state) => state.ville.historique)
+  // console.log(histo)
+
+  const handleClickMenutem = (e) => {
+    store.dispatch(villeSelectionnee(e.target.value))
+    setAnchorEl(null)
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      {/* <Box>
-        <Switch name='switchTheme' checked={isDark} onChange={toggleTheme} />
-        <label htmlFor='switchTheme'> Theme </label> {isDark ? 'clair' : 'sombre'}
-      </Box> */}
       <AppBar position='static'>
         <Toolbar>
           <IconButton
+            onClick={handleClickMenu}
             size='large'
             edge='start'
             color='inherit'
             aria-label='menu'
             sx={{ mr: 2 }}
-            onClick={handleClickMenu}
           >
             <MenuIcon />
           </IconButton>
           <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-            <MenuItem onClick={handleClose}>
-              <Box>
-                <Switch name='switchTheme' checked={isDark} onChange={toggleTheme} />
-                <label htmlFor='switchTheme'> Theme </label> {isDark ? 'clair' : 'sombre'}
-              </Box>
+            <MenuItem disabled>
+              <em>Historique</em>
+            </MenuItem>
+            {histo.map((item) => (
+              <MenuItem key={item.insee} value={item.insee} onClick={handleClickMenutem}>
+                {item.name}
+              </MenuItem>
+            ))}
+            <Divider></Divider>
+            <MenuItem>
+              <Switch
+                name='switchTheme'
+                checked={isDark}
+                onChange={toggleTheme}
+                onClick={handleClose}
+              />
+              <label htmlFor='switchTheme'> Theme </label> {isDark ? 'Clair' : 'Sombre'}
             </MenuItem>
           </Menu>
 
@@ -70,7 +89,7 @@ export default function TopBar() {
             component='h1'
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            METEO
+            METEO (FRANCE)
           </Typography>
           <TextField
             style={{

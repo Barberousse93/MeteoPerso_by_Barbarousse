@@ -1,4 +1,5 @@
-import { Container, Tooltip } from '@mui/material'
+import Container from '@mui/material/Container'
+import Tooltip from '@mui/material/Tooltip'
 import React, { useState } from 'react'
 import Box from '@mui/material/Box'
 import thermometre from '../assets/icons/WeatherIcon - 2-3.png'

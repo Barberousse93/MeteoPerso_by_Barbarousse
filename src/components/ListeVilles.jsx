@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import { Container, FormControl, InputLabel, MenuItem, Select, Skeleton } from '@mui/material'
 import { store } from '../App'
-import { villeSelectionnee } from '../actions/ville.action'
+import { villeSelectionnee, addHistorique } from '../actions/ville.action'
 
 function ListeVilles() {
   const [liste, setListe] = useState([])
@@ -22,7 +22,6 @@ function ListeVilles() {
   }, [Ville])
 
   useEffect(() => {
-    console.log('Cousou !', isVisible, insee)
     if (insee !== 0) {
       setIsVisible(false)
     } else {
@@ -42,7 +41,6 @@ function ListeVilles() {
   async function fetchCities() {
     setIsLoading(true)
     const urlBase = 'https://api.meteo-concept.com/api/'
-    // const token = 'd4caf9a6a50b0fa4ff74f43ecee19bcd175c673b14b2c56aa1668fb67dd62c1e'
     const token2 = 'c90958e683691c5251a4ecc2aec3e22349c67d7f262f60ed04fce5741552d263'
     const url = urlBase + 'location/cities/?token=' + token2 + '&search=' + Ville
     const response = await fetch(url)
@@ -56,6 +54,7 @@ function ListeVilles() {
 
     if (liste.length === 1) {
       store.dispatch(villeSelectionnee(liste[0].insee))
+      store.dispatch(addHistorique(liste[0].insee, liste[0].name))
       setIsVisible(false)
     } else {
       setListe(liste)
@@ -94,7 +93,9 @@ function ListeVilles() {
                     key={item.insee}
                     value={item.insee}
                     onClick={() => {
-                      store.dispatch(villeSelectionnee(item.insee), setIsVisible(false))
+                      store.dispatch(villeSelectionnee(item.insee)),
+                        setIsVisible(false),
+                        store.dispatch(addHistorique({ insee: item.insee, name: item.name }))
                     }}
                   >
                     {item.name} ({item.cp})

@@ -1,7 +1,8 @@
 import Box from '@mui/material/Box'
 import React, { useEffect, useState } from 'react'
 import CardHour from './CardHour'
-import { Typography, Skeleton } from '@mui/material'
+import Typography from '@mui/material/Typography'
+import Skeleton from '@mui/material/Skeleton'
 
 function PrevisionHours(props) {
   const [erreur, setErreur] = useState(false)
