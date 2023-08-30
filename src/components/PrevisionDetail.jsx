@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Modal from '@mui/material/Modal'
-// import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import CardPeriod from './CardPeriod'
@@ -57,11 +56,8 @@ function PrevisionDetail(props) {
       throw new Error(message)
     }
     const dataPeriodes = await response.json()
-    // console.log(dataPeriodes)
     const forecastPeriodes = dataPeriodes.forecast
     setForecast(forecastPeriodes)
-    // console.log('forecastPeriodes', forecastPeriodes)
-    // console.log('forecast', forecast)
     const updatedate = new Date(dataPeriodes.update)
     const updatedateFormat = updatedate.toLocaleDateString()
     const updateTimeFormat = updatedate.toLocaleTimeString()
@@ -69,7 +65,7 @@ function PrevisionDetail(props) {
     setUpdateDate(miseAjour)
     setIsLoading(false)
   }
-  // console.log(props)
+
   const dateISO = new Date(props.data.datetime)
   const dateLocale = dateISO.toLocaleDateString()
 
@@ -84,7 +80,7 @@ function PrevisionDetail(props) {
             <Typography variant='h6' component='h2'>
               <strong>{dateLocale}</strong>
             </Typography>
-            {/* // */}
+
             <Divider textAlign='left'>
               <Typography sx={{ fontSize: '0.8rem' }} variant='h6' component='h2'>
                 Prévisions détaillées
@@ -93,7 +89,6 @@ function PrevisionDetail(props) {
             <Box sx={{ border: 1, borderRadius: 3, p: 1, m: 1, overflow: 'auto' }}>
               <Grid container spacing={2}>
                 <Grid item xs={4}>
-                  {/* Température */}
                   <Box
                     sx={{
                       display: 'flex',
@@ -121,7 +116,6 @@ function PrevisionDetail(props) {
                     justifyContent: 'center',
                   }}
                 >
-                  {/* Pluie */}
                   <Tooltip title='Prévisions relatives à la pluie'>
                     <img src={rain} width='24px' style={{ margin: '10px' }} />
                   </Tooltip>
@@ -132,7 +126,6 @@ function PrevisionDetail(props) {
                   </Box>
                 </Grid>
                 <Grid item xs={4}>
-                  {/* Gel / brouillard */}
                   <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                     <Tooltip title='Probabilité de gel'>
                       <img src={frost} width='24px' style={{ margin: '10px' }} />

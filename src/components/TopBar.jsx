@@ -42,7 +42,6 @@ export default function TopBar() {
   const { isDark, toggleTheme } = useContext(ThemeContext)
 
   const histo = useSelector((state) => state.ville.historique)
-  // console.log(histo)
 
   const handleClickMenutem = (e) => {
     store.dispatch(villeSelectionnee(e.target.value))
@@ -114,7 +113,7 @@ export default function TopBar() {
           </Typography>
           <TextField
             style={{
-              backgroundColor: 'rgba(255,255,255,0.3)',
+              backgroundColor: 'rgba(255,255,255,0.1)',
               borderRadius: '5px',
             }}
             onChange={(e) => setVille(e.target.value)}

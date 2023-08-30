@@ -14,7 +14,6 @@ const periode = {
   3: { libelle: 'soir' },
 }
 function CardPeriod(props) {
-  //   console.log(props)
   if (!weatherCodes[props.dataPeriod.weather]) {
     return <p>Code manquant : {props.dataPeriod.weather} </p>
   }

@@ -1,7 +1,12 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { Container, FormControl, InputLabel, MenuItem, Select, Skeleton } from '@mui/material'
+import Container from '@mui/material/Container'
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
+import Skeleton from '@mui/material/Skeleton'
 import { store } from '../App'
 import { villeSelectionnee, addHistorique } from '../actions/ville.action'
 
@@ -58,7 +63,6 @@ function ListeVilles() {
       setIsVisible(false)
     } else {
       setListe(liste)
-      // setIsVisible(true)
     }
     setIsLoading(false)
   }
@@ -73,7 +77,6 @@ function ListeVilles() {
 
   return (
     <div>
-      {/* {isLoading ? <div>Chargement en cours...</div> : null} */}
       {isVisible ? (
         <Container sx={{ width: 1 / 2, display: 'flex', justifyContent: 'center' }}>
           {isLoading ? (
