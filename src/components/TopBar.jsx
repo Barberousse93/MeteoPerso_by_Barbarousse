@@ -49,8 +49,8 @@ export default function TopBar() {
   }
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position='static'>
+    <Box sx={{ flexGrow: 1, mb: 10 }}>
+      <AppBar position='fixed'>
         <Toolbar>
           <IconButton
             onClick={handleClickMenu}
