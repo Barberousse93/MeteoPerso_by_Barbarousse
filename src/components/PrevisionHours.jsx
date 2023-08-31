@@ -12,7 +12,7 @@ function PrevisionHours(props) {
 
   useEffect(() => {
     fetchPrevisonHours()
-  }, [])
+  }, [props.insee])
 
   async function fetchPrevisonHours() {
     setIsLoading(true)
