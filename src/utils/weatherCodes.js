@@ -47,6 +47,10 @@ export const weatherCodes = {
     libelle: 'Averses de pluie',
     icone: 'WeatherIcon - 1-18',
   },
+  47: {
+    libelle: 'Averses de pluie fréquentes',
+    icone: 'WeatherIcon - 2-43',
+  },
   100: {
     libelle: 'Orages faibles et locaux',
     icone: 'WeatherIcon - 2-46',
