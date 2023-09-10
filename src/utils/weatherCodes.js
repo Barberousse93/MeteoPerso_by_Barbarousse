@@ -23,6 +23,10 @@ export const weatherCodes = {
     libelle: 'Couvert',
     icone: 'Group 678',
   },
+  6: {
+    libelle: 'Brouillard',
+    icone: 'WeatherIcon - 2-27',
+  },
   10: {
     libelle: 'Puie faible',
     icone: 'WeatherIcon - 2-38',
@@ -43,9 +47,17 @@ export const weatherCodes = {
     libelle: 'Averses de pluie locales',
     icone: 'WeatherIcon - 2-37',
   },
+  43: {
+    libelle: 'Averses de pluie faibles',
+    icone: 'WeatherIcon - 2-42',
+  },
   44: {
     libelle: 'Averses de pluie',
     icone: 'WeatherIcon - 1-18',
+  },
+  46: {
+    libelle: 'Averses de pluie faibles et fréquentes',
+    icone: 'WeatherIcon - 2-43',
   },
   47: {
     libelle: 'Averses de pluie fréquentes',
