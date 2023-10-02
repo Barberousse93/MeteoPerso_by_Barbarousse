@@ -27,12 +27,12 @@ function ListeVilles() {
   }, [Ville])
 
   useEffect(() => {
-    if (insee !== 0) {
-      setIsVisible(false)
-    } else {
+    if (Ville.length > 0) {
       setIsVisible(true)
+    } else {
+      setIsVisible(false)
     }
-  }, [insee])
+  }, [Ville])
 
   const [villeChoisie, setVilleChoisie] = useState()
 
@@ -71,7 +71,8 @@ function ListeVilles() {
     return <div>{erreur} </div>
   }
 
-  if ((Ville.length !== 0) & (liste.length == 0)) {
+  if (Ville.length !== 0 && liste.length === 0 && insee === 0) {
+    console.log(Ville, liste, insee)
     return <div>Aucun résultat...</div>
   }
 

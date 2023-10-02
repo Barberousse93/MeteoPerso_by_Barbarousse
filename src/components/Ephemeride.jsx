@@ -63,7 +63,7 @@ function Ephemeride() {
     setIsLoading(false)
   }
 
-  const bloc = document.querySelector('#bloc')
+  const bloc = document.querySelector('#bloc') // <==== Remplacer par useRef
   const handleNext = () => {
     bloc.classList.remove('LefttoRight')
     bloc.classList.remove('RightToLeft')
