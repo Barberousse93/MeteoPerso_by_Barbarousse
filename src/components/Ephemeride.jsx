@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import './Ephemeride.css'
 import PrevisionHours from './PrevisionHours'
@@ -21,6 +21,7 @@ function Ephemeride() {
   const [leftIsVisible, setLeftIsVisible] = useState(true)
   const [rightIsVisible, setRightIsVisible] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
+  const bloc = useRef(null)
 
   useEffect(() => {
     if (insee !== 0) {
@@ -63,23 +64,23 @@ function Ephemeride() {
     setIsLoading(false)
   }
 
-  const bloc = document.querySelector('#bloc') // <==== Remplacer par useRef
+  // const bloc = document.querySelector('#bloc') // <==== Remplacer par useRef
   const handleNext = () => {
-    bloc.classList.remove('LefttoRight')
-    bloc.classList.remove('RightToLeft')
+    bloc.current.classList.remove('LefttoRight')
+    bloc.current.classList.remove('RightToLeft')
     window.requestAnimationFrame(function (time) {
       window.requestAnimationFrame(function (time) {
-        bloc.classList.add('LefttoRight')
+        bloc.current.classList.add('LefttoRight')
       })
     })
     setJour(jour + 1)
   }
   const handlePrevious = () => {
-    bloc.classList.remove('RightToLeft')
-    bloc.classList.remove('LefttoRight')
+    bloc.current.classList.remove('RightToLeft')
+    bloc.current.classList.remove('LefttoRight')
     window.requestAnimationFrame(function (time) {
       window.requestAnimationFrame(function (time) {
-        bloc.classList.add('RightToLeft')
+        bloc.current.classList.add('RightToLeft')
       })
     })
     setJour(jour - 1)
@@ -137,6 +138,7 @@ function Ephemeride() {
             <Container
               sx={{ width: 1, border: 1, borderRadius: '5px', p: 1 }}
               id='bloc'
+              ref={bloc}
               title='Ephéùéride'
             >
               {isLoading ? <Skeleton width={150} /> : <p>Date : {ephemeride.datetime}</p>}
