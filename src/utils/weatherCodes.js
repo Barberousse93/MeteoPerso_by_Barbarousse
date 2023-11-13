@@ -99,6 +99,10 @@ export const weatherCodes = {
     libelle: 'Orages forts et fréquents',
     icone: 'WeatherIcon - 1-14',
   },
+  140: {
+    libelle: 'Pluies orageuses',
+    icone: 'WeatherIcon - 2-63',
+  },
   210: {
     libelle: 'Pluie faible intermittente',
     icone: 'Group 683',

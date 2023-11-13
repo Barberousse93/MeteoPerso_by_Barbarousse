@@ -27,6 +27,12 @@ export default function TopBar() {
     store.dispatch(villeSelectionnee(0))
     setVille('')
   }
+
+  const handleKeyUp = (e) => {
+    if (e.keyCode === 13 && e.target.value !== '') {
+      handleClick()
+    }
+  }
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
 
@@ -117,6 +123,7 @@ export default function TopBar() {
               borderRadius: '5px',
             }}
             onChange={(e) => setVille(e.target.value)}
+            onKeyUp={handleKeyUp}
             value={ville}
             size='small'
             placeholder='Rechercher une ville...'

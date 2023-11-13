@@ -40,9 +40,14 @@ export function ville(state = initialState, action) {
     case DELETE_HISTORIQUE:
       const deleteHisto = [...state.historique]
       const newHisto = deleteHisto.filter((ville) => ville.insee !== action.payload)
+      let newVille = state.villeSelectionnee
+      if (action.payload === state.villeSelectionnee) {
+        newVille = 0
+      }
       return {
         ...state,
         historique: newHisto,
+        villeSelectionnee: newVille,
       }
 
     default:

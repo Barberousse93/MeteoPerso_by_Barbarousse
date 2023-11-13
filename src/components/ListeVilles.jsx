@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import Skeleton from '@mui/material/Skeleton'
 import { store } from '../App'
-import { villeSelectionnee, addHistorique } from '../actions/ville.action'
+import { villeSelectionnee, addHistorique, villeRecherchee } from '../actions/ville.action'
 
 function ListeVilles() {
   const [liste, setListe] = useState([])
@@ -72,7 +72,6 @@ function ListeVilles() {
   }
 
   if (Ville.length !== 0 && liste.length === 0 && insee === 0) {
-    console.log(Ville, liste, insee)
     return <div>Aucun résultat...</div>
   }
 
@@ -98,8 +97,10 @@ function ListeVilles() {
                     value={item.insee}
                     onClick={() => {
                       store.dispatch(villeSelectionnee(item.insee)),
+                        store.dispatch(villeRecherchee('')),
                         setIsVisible(false),
-                        store.dispatch(addHistorique({ insee: item.insee, name: item.name }))
+                        setListe([])
+                      store.dispatch(addHistorique({ insee: item.insee, name: item.name }))
                     }}
                   >
                     {item.name} ({item.cp})
