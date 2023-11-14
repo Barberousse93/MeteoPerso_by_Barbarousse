@@ -2,8 +2,10 @@ import { Container, Skeleton } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import PrevisionJour from './PrevisionJour'
+import useTheme from '@mui/material/styles/useTheme'
 
 function PrevisionsList() {
+  const theme = useTheme()
   const insee = useSelector((state) => state.ville.villeSelectionnee)
   const [erreur, setErreur] = useState(false)
   const [forecastList, setForecastList] = useState([])
@@ -41,7 +43,28 @@ function PrevisionsList() {
   return (
     <div>
       {insee !== 0 ? (
-        <Container id='box' sx={{ border: 1, width: 1 / 2, borderRadius: '5px', p: 2, mt: 2 }}>
+        <Container
+          id='box'
+          sx={{
+            border: 1,
+            width: '100%',
+            borderRadius: '5px',
+            p: 2,
+            mt: 2,
+            [theme.breakpoints.down('md')]: {
+              // Styles pour les écrans de taille "900" et inférieurs
+              width: '100%',
+            },
+            [theme.breakpoints.up('md')]: {
+              // Styles pour les écrans de taille "900" et supérieurs
+              width: '75%',
+            },
+            [theme.breakpoints.up('lg')]: {
+              // Styles pour les écrans de taille "1200" et supérieurs
+              width: '50%',
+            },
+          }}
+        >
           {forecastList.map((item, index) =>
             isLoading ? (
               <Skeleton key={index} width='95%' height={100} sx={{ m: 1 }}></Skeleton>

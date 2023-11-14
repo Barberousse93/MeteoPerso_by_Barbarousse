@@ -12,8 +12,10 @@ import './Ephemeride.css'
 import PrevisionHours from './PrevisionHours'
 import sunrise from '../assets/icons/WeatherIcon - 1-24.png'
 import sunset from '../assets/icons/WeatherIcon - 1-23.png'
+import useTheme from '@mui/material/styles/useTheme'
 
 function Ephemeride() {
+  const theme = useTheme()
   const insee = useSelector((state) => state.ville.villeSelectionnee)
   const [infos, setInfos] = useState({})
   const [ephemeride, setEphemeride] = useState({})
@@ -89,7 +91,28 @@ function Ephemeride() {
   return (
     <div>
       {insee !== 0 ? (
-        <Container id='box' sx={{ border: 1, width: 1 / 2, borderRadius: '5px', p: 2, mt: 2 }}>
+        <Container
+          id='box'
+          sx={{
+            border: 1,
+            width: 1 / 2,
+            borderRadius: '5px',
+            p: 2,
+            mt: 2,
+            [theme.breakpoints.down('md')]: {
+              // Styles pour les écrans de taille "900" et inférieurs
+              width: '100%',
+            },
+            [theme.breakpoints.up('md')]: {
+              // Styles pour les écrans de taille "900" et supérieurs
+              width: '75%',
+            },
+            [theme.breakpoints.up('lg')]: {
+              // Styles pour les écrans de taille "1200" et supérieurs
+              width: '50%',
+            },
+          }}
+        >
           <Typography variant='h3'>{isLoading ? <Skeleton width='50%' /> : infos.name} </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
             <Typography variant='h6' style={{ display: 'inline' }}>

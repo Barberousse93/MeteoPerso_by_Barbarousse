@@ -15,13 +15,14 @@ import frost from '../assets/icons/WeatherIcon - 1-21.png'
 import fog from '../assets/icons/WeatherIcon - 2-27.png'
 import wind from '../assets/icons/WeatherIcon - 2-6.png'
 import NavigationIcon from '@mui/icons-material/Navigation'
+import useTheme from '@mui/material/styles/useTheme'
 
 const PaperStyle = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '50%',
+  // width: '50%',
   bgcolor: 'primary',
   border: '2px solid #000',
   borderRadius: 5,
@@ -30,6 +31,7 @@ const PaperStyle = {
 }
 
 function PrevisionDetail(props) {
+  const theme = useTheme()
   const [erreur, setErreur] = useState(false)
   const [updateDate, setUpdateDate] = useState('')
   const [forecast, setForecast] = useState([])
@@ -74,9 +76,49 @@ function PrevisionDetail(props) {
   }
   return (
     <>
-      <Modal open={props.modalIsOpen} onClose={handleClose}>
-        <Paper style={PaperStyle}>
-          <Box sx={{ border: 1, m: 1, p: 1, borderRadius: 3 }}>
+      <Modal
+        open={props.modalIsOpen}
+        onClose={handleClose}
+        // sx={{
+        //   [theme.breakpoints.down('md')]: {
+        //     // Styles pour les écrans de taille "900" et inférieurs
+        //     border: 2,
+        //   },
+        //   [theme.breakpoints.up('md')]: {
+        //     // Styles pour les écrans de taille "900" et supérieurs
+        //     border: 5,
+        //   },
+        //   [theme.breakpoints.up('lg')]: {
+        //     // Styles pour les écrans de taille "1200" et supérieurs
+        //     width: '100%',
+        //   },
+        // }}
+      >
+        <Paper
+          style={PaperStyle}
+          sx={{
+            [theme.breakpoints.down('md')]: {
+              // Styles pour les écrans de taille "900" et inférieurs
+              width: '100%',
+            },
+            [theme.breakpoints.up('md')]: {
+              // Styles pour les écrans de taille "900" et supérieurs
+              width: '75%',
+            },
+            [theme.breakpoints.up('lg')]: {
+              // Styles pour les écrans de taille "1200" et supérieurs
+              width: '50%',
+            },
+          }}
+        >
+          <Box
+            sx={{
+              border: 1,
+              m: 1,
+              p: 1,
+              borderRadius: 3,
+            }}
+          >
             <Typography variant='h6' component='h2'>
               <strong>{dateLocale}</strong>
             </Typography>
