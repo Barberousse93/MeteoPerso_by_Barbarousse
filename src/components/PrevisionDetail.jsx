@@ -76,24 +76,7 @@ function PrevisionDetail(props) {
   }
   return (
     <>
-      <Modal
-        open={props.modalIsOpen}
-        onClose={handleClose}
-        // sx={{
-        //   [theme.breakpoints.down('md')]: {
-        //     // Styles pour les écrans de taille "900" et inférieurs
-        //     border: 2,
-        //   },
-        //   [theme.breakpoints.up('md')]: {
-        //     // Styles pour les écrans de taille "900" et supérieurs
-        //     border: 5,
-        //   },
-        //   [theme.breakpoints.up('lg')]: {
-        //     // Styles pour les écrans de taille "1200" et supérieurs
-        //     width: '100%',
-        //   },
-        // }}
-      >
+      <Modal open={props.modalIsOpen} onClose={handleClose}>
         <Paper
           style={PaperStyle}
           sx={{
@@ -242,7 +225,7 @@ function PrevisionDetail(props) {
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                // justifyContent: 'space-evenly',
+                justifyContent: 'space-between',
                 m: 1,
                 p: 1,
                 border: 1,

@@ -40,6 +40,9 @@ function PrevisionJour(data) {
           p: 1,
           mt: 2,
           display: 'flex',
+          justifyContent: 'space-around',
+          flexWrap: 'wrap',
+          // alignItems: 'center',
           flexDirection: 'row',
           overflow: 'auto',
           cursor: 'pointer',
@@ -53,10 +56,17 @@ function PrevisionJour(data) {
             style={{ marginRight: '10px' }}
           />
         </Tooltip>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', width: '75%', justifyContent: 'space-around' }}>
           <p>{data.data.day === 0 ? "Aujourd'hui" : data.data.day === 1 ? 'Demain' : dateLocale}</p>
           <br />
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-around',
+            }}
+          >
             <Box sx={{ display: 'flex', alignItems: 'center', marginRight: '10px' }}>
               <Tooltip title='Température min/max'>
                 <img src={thermometre} width='24px' />
