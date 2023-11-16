@@ -105,7 +105,7 @@ export default function TopBar() {
                 onChange={toggleTheme}
                 onClick={handleClose}
               />
-              <label htmlFor='switchTheme'> Theme </label> {isDark ? 'Clair' : 'Sombre'}
+              <label htmlFor='switchTheme'> Theme&nbsp;</label> {isDark ? 'Clair' : 'Sombre'}
             </MenuItem>
           </Menu>
 
