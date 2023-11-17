@@ -15,7 +15,6 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Divider from '@mui/material/Divider'
 import ListItemIcon from '@mui/material/ListItemIcon'
-//* */
 
 import { store } from '../App'
 import { deleteHistorique } from '../actions/ville.action'

@@ -10,12 +10,11 @@ import Skeleton from '@mui/material/Skeleton'
 import { store } from '../App'
 import { villeSelectionnee, addHistorique, villeRecherchee } from '../actions/ville.action'
 import useFetch from '../utils/Hooks/useFetch'
+import useListeVille from '../utils/Hooks/useListeVille'
 
 function ListeVilles() {
-  const [liste, setListe] = useState([])
-  const [isVisible, setIsVisible] = useState(true)
-  const [villeChoisie, setVilleChoisie] = useState()
   const [url, setUrl] = useState('')
+  const [liste, setListe] = useState([])
 
   const { data, isLoading, error } = useFetch(url)
 
@@ -24,18 +23,7 @@ function ListeVilles() {
 
   useEffect(() => {
     if (Ville.length > 0) {
-      console.log(Ville)
       fetchCities()
-    }
-    // console.log(Ville)
-    // fetchCities()
-  }, [Ville])
-
-  useEffect(() => {
-    if (Ville.length > 0) {
-      setIsVisible(true)
-    } else {
-      setIsVisible(false)
     }
   }, [Ville])
 
@@ -53,9 +41,7 @@ function ListeVilles() {
     }
   }, [data])
 
-  const handleChange = (e) => {
-    setVilleChoisie(e.target.value)
-  }
+  const { isVisible, setIsVisible, villeChoisie, handleChange } = useListeVille()
 
   async function fetchCities() {
     const urlBase = 'https://api.meteo-concept.com/api/'
