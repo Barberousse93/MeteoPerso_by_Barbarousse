@@ -9,21 +9,26 @@ import Select from '@mui/material/Select'
 import Skeleton from '@mui/material/Skeleton'
 import { store } from '../App'
 import { villeSelectionnee, addHistorique, villeRecherchee } from '../actions/ville.action'
+import useFetch from '../utils/Hooks/useFetch'
 
 function ListeVilles() {
   const [liste, setListe] = useState([])
-  const [erreur, setErreur] = useState('')
   const [isVisible, setIsVisible] = useState(true)
-  const [isLoading, setIsLoading] = useState(false)
+  const [villeChoisie, setVilleChoisie] = useState()
+  const [url, setUrl] = useState('')
+
+  const { data, isLoading, error } = useFetch(url)
 
   const Ville = useSelector((state) => state.ville.villeRecherchee)
   const insee = useSelector((state) => state.ville.villeSelectionnee)
 
   useEffect(() => {
-    if (Ville.length === 0) {
-      return
+    if (Ville.length > 0) {
+      console.log(Ville)
+      fetchCities()
     }
-    fetchCities()
+    // console.log(Ville)
+    // fetchCities()
   }, [Ville])
 
   useEffect(() => {
@@ -34,41 +39,33 @@ function ListeVilles() {
     }
   }, [Ville])
 
-  const [villeChoisie, setVilleChoisie] = useState()
+  useEffect(() => {
+    if (data && data['cities']) {
+      const liste = data['cities']
+
+      if (liste.length === 1) {
+        store.dispatch(villeSelectionnee(liste[0].insee))
+        store.dispatch(addHistorique({ insee: liste[0].insee, name: liste[0].name }))
+        setIsVisible(false)
+      } else {
+        setListe(liste)
+      }
+    }
+  }, [data])
 
   const handleChange = (e) => {
     setVilleChoisie(e.target.value)
   }
 
-  // const NewState = store.getState()
-  // console.log('NewState ListeVilles', NewState)
-
   async function fetchCities() {
-    setIsLoading(true)
     const urlBase = 'https://api.meteo-concept.com/api/'
     const token2 = 'c90958e683691c5251a4ecc2aec3e22349c67d7f262f60ed04fce5741552d263'
     const url = urlBase + 'location/cities/?token=' + token2 + '&search=' + Ville
-    const response = await fetch(url)
-    if (!response.ok) {
-      const message = `Oups !! Il y a eu un problème : ${response.status} ${response.statusText}`
-      setErreur(message)
-      throw new Error(message)
-    }
-    const data = await response.json()
-    const liste = data['cities']
-
-    if (liste.length === 1) {
-      store.dispatch(villeSelectionnee(liste[0].insee))
-      store.dispatch(addHistorique({ insee: liste[0].insee, name: liste[0].name }))
-      setIsVisible(false)
-    } else {
-      setListe(liste)
-    }
-    setIsLoading(false)
+    setUrl(url)
   }
 
-  if (erreur) {
-    return <div>{erreur} </div>
+  if (error) {
+    return <div>{error} </div>
   }
 
   if (Ville.length !== 0 && liste.length === 0 && insee === 0) {

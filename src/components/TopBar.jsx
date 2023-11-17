@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -9,51 +9,33 @@ import Switch from '@mui/material/Switch'
 import SearchIcon from '@mui/icons-material/Search'
 import ClearIcon from '@mui/icons-material/Clear'
 import DeleteIcon from '@mui/icons-material/Delete'
-import ThemeContext from '../utils/Theming/ThemeContext'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
-import { store } from '../App'
-import { deleteHistorique, villeRecherchee, villeSelectionnee } from '../actions/ville.action'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import { Divider, ListItemIcon } from '@mui/material'
-import { useSelector } from 'react-redux'
+import Divider from '@mui/material/Divider'
+import ListItemIcon from '@mui/material/ListItemIcon'
+//* */
+
+import { store } from '../App'
+import { deleteHistorique } from '../actions/ville.action'
+import useTopBar from '../utils/Hooks/useTopBar'
 
 export default function TopBar() {
-  const [ville, setVille] = useState('')
-
-  const handleClick = () => {
-    store.dispatch(villeRecherchee(ville))
-    store.dispatch(villeSelectionnee(0))
-    setVille('')
-  }
-
-  const handleKeyUp = (e) => {
-    if (e.keyCode === 13 && e.target.value !== '') {
-      handleClick()
-    }
-  }
-  const [anchorEl, setAnchorEl] = useState(null)
-  const open = Boolean(anchorEl)
-
-  const handleClickMenu = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-  // const NewState = store.getState()
-  // console.log('NewState', NewState)
-
-  const { isDark, toggleTheme } = useContext(ThemeContext)
-
-  const histo = useSelector((state) => state.ville.historique)
-
-  const handleClickMenutem = (e) => {
-    store.dispatch(villeSelectionnee(e.target.value))
-    setAnchorEl(null)
-  }
-
+  const {
+    handleClick,
+    handleKeyUp,
+    handleClickMenu,
+    handleClose,
+    handleClickMenutem,
+    open,
+    isDark,
+    toggleTheme,
+    histo,
+    anchorEl,
+    ville,
+    setVille,
+  } = useTopBar()
   return (
     <Box sx={{ flexGrow: 1, mb: 10 }}>
       <AppBar position='fixed'>
@@ -72,7 +54,6 @@ export default function TopBar() {
             <MenuItem disabled>
               <em>Historique</em>
             </MenuItem>
-
             {histo.map((item) => (
               <Box
                 key={item.insee}
@@ -96,7 +77,6 @@ export default function TopBar() {
                 </ListItemIcon>
               </Box>
             ))}
-
             <Divider></Divider>
             <MenuItem>
               <Switch
