@@ -6,12 +6,10 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import Skeleton from '@mui/material/Skeleton'
-import { store } from '../App'
-import { villeSelectionnee, addHistorique, villeRecherchee } from '../actions/ville.action'
 import useListeVille from '../utils/Hooks/useListeVille'
 
 function ListeVilles() {
-  const { isLoading, error, liste, setListe, isVisible, setIsVisible, villeChoisie, handleChange } =
+  const { isLoading, error, liste, isVisible, villeChoisie, handleChange, handleClickItem } =
     useListeVille()
 
   const Ville = useSelector((state) => state.ville.villeRecherchee)
@@ -23,15 +21,6 @@ function ListeVilles() {
 
   if (Ville.length !== 0 && liste.length === 0 && insee === 0) {
     return <div>Aucun résultat...</div>
-  }
-
-  const handleClickItem = (insee, name) => {
-    console.log(insee, name)
-    store.dispatch(villeSelectionnee(insee)),
-      store.dispatch(villeRecherchee('')),
-      setIsVisible(false),
-      setListe([])
-    store.dispatch(addHistorique({ insee: insee, name: name }))
   }
 
   return (

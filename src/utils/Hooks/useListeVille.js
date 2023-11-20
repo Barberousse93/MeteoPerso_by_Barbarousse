@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import useFetch from '../../utils/Hooks/useFetch'
+import { store } from '../../App'
+import { villeSelectionnee, addHistorique, villeRecherchee } from '../../actions/ville.action'
 
 export default function useListeVille() {
   const [isVisible, setIsVisible] = useState(true)
@@ -21,6 +23,15 @@ export default function useListeVille() {
 
   const handleChange = (e) => {
     setVilleChoisie(e.target.value)
+  }
+
+  const handleClickItem = (insee, name) => {
+    console.log(insee, name)
+    store.dispatch(villeSelectionnee(insee)),
+      store.dispatch(villeRecherchee('')),
+      setIsVisible(false),
+      setListe([])
+    store.dispatch(addHistorique({ insee, name }))
   }
 
   useEffect(() => {
@@ -54,10 +65,9 @@ export default function useListeVille() {
     isLoading,
     error,
     liste,
-    setListe,
     isVisible,
-    setIsVisible,
     villeChoisie,
     handleChange,
+    handleClickItem,
   }
 }
