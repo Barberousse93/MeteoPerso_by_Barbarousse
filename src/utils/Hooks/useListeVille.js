@@ -2,9 +2,8 @@ import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 
 export default function useListeVille() {
-  //   const [liste, setListe] = useState([])
   const [isVisible, setIsVisible] = useState(true)
-  //   const [villeChoisie, setVilleChoisie] = useState()
+  const [villeChoisie, setVilleChoisie] = useState('')
 
   const Ville = useSelector((state) => state.ville.villeRecherchee)
 
@@ -21,11 +20,9 @@ export default function useListeVille() {
   }
 
   return {
-    // liste,
-    // setListe,
     isVisible,
     setIsVisible,
-    // villeChoisie,
+    villeChoisie,
     handleChange,
   }
 }

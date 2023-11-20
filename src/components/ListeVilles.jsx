@@ -13,6 +13,7 @@ import useFetch from '../utils/Hooks/useFetch'
 import useListeVille from '../utils/Hooks/useListeVille'
 
 function ListeVilles() {
+  const { isVisible, setIsVisible, villeChoisie, handleChange } = useListeVille()
   const [url, setUrl] = useState('')
   const [liste, setListe] = useState([])
 
@@ -40,8 +41,6 @@ function ListeVilles() {
       }
     }
   }, [data])
-
-  const { isVisible, setIsVisible, villeChoisie, handleChange } = useListeVille()
 
   async function fetchCities() {
     const urlBase = 'https://api.meteo-concept.com/api/'
