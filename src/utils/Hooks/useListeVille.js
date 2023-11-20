@@ -54,6 +54,7 @@ export default function useListeVille() {
     isLoading,
     error,
     liste,
+    setListe,
     isVisible,
     setIsVisible,
     villeChoisie,
