@@ -26,7 +26,6 @@ export default function useListeVille() {
   }
 
   const handleClickItem = (insee, name) => {
-    console.log(insee, name)
     store.dispatch(villeSelectionnee(insee)),
       store.dispatch(villeRecherchee('')),
       setIsVisible(false),

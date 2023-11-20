@@ -63,6 +63,10 @@ export const weatherCodes = {
     libelle: 'Averses de pluie fréquentes',
     icone: 'WeatherIcon - 2-43',
   },
+  70: {
+    libelle: 'Averses de pluie et neige mêlées localisées et faibles',
+    icone: 'WeatherIcon - 2-35',
+  },
   100: {
     libelle: 'Orages faibles et locaux',
     icone: 'WeatherIcon - 2-46',
