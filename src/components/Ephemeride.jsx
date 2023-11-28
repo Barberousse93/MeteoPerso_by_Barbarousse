@@ -6,86 +6,32 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import React, { useEffect, useState, useRef } from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react'
 import './Ephemeride.css'
 import PrevisionHours from './PrevisionHours'
 import sunrise from '../assets/icons/WeatherIcon - 1-24.png'
 import sunset from '../assets/icons/WeatherIcon - 1-23.png'
 import useTheme from '@mui/material/styles/useTheme'
+import useEphemeride from '../utils/Hooks/useEphemeride'
 
 function Ephemeride() {
   const theme = useTheme()
-  const insee = useSelector((state) => state.ville.villeSelectionnee)
-  const [infos, setInfos] = useState({})
-  const [ephemeride, setEphemeride] = useState({})
-  const [jour, setJour] = useState(0)
-  const [leftIsVisible, setLeftIsVisible] = useState(true)
-  const [rightIsVisible, setRightIsVisible] = useState(true)
-  const [isLoading, setIsLoading] = useState(false)
-  const bloc = useRef(null)
 
-  useEffect(() => {
-    if (insee !== 0) {
-      fetchEphemeride()
+  const {
+    insee,
+    isLoading,
+    error,
+    infos,
+    leftIsVisible,
+    rightIsVisible,
+    handlePrevious,
+    handleNext,
+    bloc,
+    ephemeride,
+  } = useEphemeride()
 
-      if (jour === 0) {
-        setLeftIsVisible(false)
-      } else {
-        setLeftIsVisible(true)
-      }
-      if (jour === 14) {
-        setRightIsVisible(false)
-      } else {
-        setRightIsVisible(true)
-      }
-    }
-  }, [insee, jour])
-
-  async function fetchEphemeride() {
-    setIsLoading(true)
-    const urlBase = 'https://api.meteo-concept.com/api/'
-    const token = 'd4caf9a6a50b0fa4ff74f43ecee19bcd175c673b14b2c56aa1668fb67dd62c1e'
-    const url = urlBase + `ephemeride/${jour}?token=` + token + '&insee=' + insee
-    const response = await fetch(url)
-    if (!response.ok) {
-      const message = `Oups !! Il y a eu un problème : ${response.status} ${response.statusText}`
-      setErreur(message)
-      throw new Error(message)
-    }
-    const data = await response.json()
-    const infos = data.city
-    const ephemeride = data.ephemeride
-    setInfos(infos)
-    setEphemeride(ephemeride)
-    const date = new Date(ephemeride.datetime)
-    const dateFormat = date.toLocaleDateString()
-    const newEphemeride = { ...ephemeride }
-    newEphemeride.datetime = dateFormat
-    setEphemeride(newEphemeride)
-    setIsLoading(false)
-  }
-
-  // const bloc = document.querySelector('#bloc') // <==== Remplacer par useRef
-  const handleNext = () => {
-    bloc.current.classList.remove('LefttoRight')
-    bloc.current.classList.remove('RightToLeft')
-    window.requestAnimationFrame(function (time) {
-      window.requestAnimationFrame(function (time) {
-        bloc.current.classList.add('LefttoRight')
-      })
-    })
-    setJour(jour + 1)
-  }
-  const handlePrevious = () => {
-    bloc.current.classList.remove('RightToLeft')
-    bloc.current.classList.remove('LefttoRight')
-    window.requestAnimationFrame(function (time) {
-      window.requestAnimationFrame(function (time) {
-        bloc.current.classList.add('RightToLeft')
-      })
-    })
-    setJour(jour - 1)
+  if (error) {
+    return <div>{error} </div>
   }
 
   return (
@@ -162,7 +108,7 @@ function Ephemeride() {
               sx={{ width: 1, border: 1, borderRadius: '5px', p: 1 }}
               id='bloc'
               ref={bloc}
-              title='Ephéùéride'
+              title='Ephéméride'
             >
               {isLoading ? <Skeleton width={150} /> : <p>Date : {ephemeride.datetime}</p>}
               {isLoading ? (
