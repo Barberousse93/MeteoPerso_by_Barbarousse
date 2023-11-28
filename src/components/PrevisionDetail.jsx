@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Modal from '@mui/material/Modal'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
@@ -16,13 +16,13 @@ import fog from '../assets/icons/WeatherIcon - 2-27.png'
 import wind from '../assets/icons/WeatherIcon - 2-6.png'
 import NavigationIcon from '@mui/icons-material/Navigation'
 import useTheme from '@mui/material/styles/useTheme'
+import usePrevisionDetail from '../utils/Hooks/usePrevisionDetail'
 
 const PaperStyle = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  // width: '50%',
   bgcolor: 'primary',
   border: '2px solid #000',
   borderRadius: 5,
@@ -32,48 +32,14 @@ const PaperStyle = {
 
 function PrevisionDetail(props) {
   const theme = useTheme()
-  const [erreur, setErreur] = useState(false)
-  const [updateDate, setUpdateDate] = useState('')
-  const [forecast, setForecast] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
 
-  useEffect(() => {
-    fetchPeriodes()
-  }, [])
+  const { handleClose, dateLocale, forecast, updateDate, isLoading, error } =
+    usePrevisionDetail(props)
 
-  async function fetchPeriodes() {
-    setIsLoading(true)
-    const urlBase = 'https://api.meteo-concept.com/api/'
-    const token2 = 'c90958e683691c5251a4ecc2aec3e22349c67d7f262f60ed04fce5741552d263'
-    const url =
-      urlBase +
-      `forecast/daily/${props.data.day}/periods?token=` +
-      token2 +
-      '&insee=' +
-      props.data.insee
-    const response = await fetch(url)
-    if (!response.ok) {
-      const message = `Oups !! Il y a eu un problème : ${response.status} ${response.statusText}`
-      setErreur(message)
-      throw new Error(message)
-    }
-    const dataPeriodes = await response.json()
-    const forecastPeriodes = dataPeriodes.forecast
-    setForecast(forecastPeriodes)
-    const updatedate = new Date(dataPeriodes.update)
-    const updatedateFormat = updatedate.toLocaleDateString()
-    const updateTimeFormat = updatedate.toLocaleTimeString()
-    const miseAjour = 'MAJ ' + updatedateFormat + ' à ' + updateTimeFormat
-    setUpdateDate(miseAjour)
-    setIsLoading(false)
+  if (error) {
+    return <div>{error} </div>
   }
 
-  const dateISO = new Date(props.data.datetime)
-  const dateLocale = dateISO.toLocaleDateString()
-
-  const handleClose = () => {
-    props.setModalIsOpen(false)
-  }
   return (
     <>
       <Modal open={props.modalIsOpen} onClose={handleClose}>
