@@ -7,20 +7,15 @@ import rain from '../assets/icons/WeatherIcon - 1-17.png'
 import wind from '../assets/icons/WeatherIcon - 2-6.png'
 import { weatherCodes } from '../utils/weatherCodes'
 import PrevisionDetail from './PrevisionDetail'
+import usePrevisionJour from '../utils/Hooks/usePrevisionJour'
 
 function PrevisionJour(data) {
-  const dateISO = new Date(data.data.datetime)
-  const dateLocale = dateISO.toLocaleDateString()
-
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-
   if (!weatherCodes[data.data.weather]) {
     return <div>Code manquant : {data.data.weather} </div>
   }
 
-  const handleClick = () => {
-    setModalIsOpen(true)
-  }
+  const { dateLocale, modalIsOpen, setModalIsOpen, handleClick } = usePrevisionJour(data)
+
   return (
     <div>
       {modalIsOpen && (
@@ -87,7 +82,6 @@ function PrevisionJour(data) {
             </Box>
           </Box>
         </Box>
-        {/* <br /> */}
       </Container>
     </div>
   )
