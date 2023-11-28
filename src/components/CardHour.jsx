@@ -5,14 +5,14 @@ import { weatherCodes } from '../utils/weatherCodes'
 import thermometre from '../assets/icons/WeatherIcon - 2-3.png'
 import rain from '../assets/icons/WeatherIcon - 1-17.png'
 import wind from '../assets/icons/WeatherIcon - 2-6.png'
+import useCardHour from '../utils/Hooks/useCardHour'
 
 function CardHour(props) {
   if (!weatherCodes[props.data.weather]) {
     return <p>Code manquant : {props.data.weather} </p>
   }
-  const dateISO = new Date(props.data.datetime)
-  const dateLocale = dateISO.toLocaleDateString('fr-FR', { day: 'numeric', month: 'numeric' })
-  const timeLocale = dateISO.toLocaleTimeString('fr-FR', { hour: 'numeric', minute: 'numeric' })
+
+  const { dateLocale, timeLocale } = useCardHour(props)
 
   return (
     <Box
