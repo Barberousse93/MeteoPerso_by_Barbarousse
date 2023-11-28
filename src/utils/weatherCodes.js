@@ -27,6 +27,10 @@ export const weatherCodes = {
     libelle: 'Brouillard',
     icone: 'WeatherIcon - 2-27',
   },
+  7: {
+    libelle: 'Brouillard givrant',
+    icone: 'WeatherIcon - 2-29',
+  },
   10: {
     libelle: 'Puie faible',
     icone: 'WeatherIcon - 2-38',
@@ -38,6 +42,26 @@ export const weatherCodes = {
   12: {
     libelle: 'Pluie forte',
     icone: 'WeatherIcon - 2-37',
+  },
+  20: {
+    libelle: 'Neige faible',
+    icone: 'WeatherIcon - 2-48',
+  },
+  21: {
+    libelle: 'Neige modérée',
+    icone: 'WeatherIcon - 2-36',
+  },
+  22: {
+    libelle: 'Neige forte',
+    icone: 'WeatherIcon - 1-19',
+  },
+  30: {
+    libelle: 'Pluie et neige mêlées faibles',
+    icone: 'WeatherIcon - 2-36',
+  },
+  31: {
+    libelle: 'Pluie et neige mêlées modérées',
+    icone: 'WeatherIcon - 2-35',
   },
   40: {
     libelle: 'Averses de pluie locales et faibles',
@@ -63,8 +87,20 @@ export const weatherCodes = {
     libelle: 'Averses de pluie fréquentes',
     icone: 'WeatherIcon - 2-43',
   },
+  60: {
+    libelle: 'Averses de neige localisées et faibles',
+    icone: 'WeatherIcon - 2-36',
+  },
+  61: {
+    libelle: 'Averses de neige localisées',
+    icone: 'WeatherIcon - 2-35',
+  },
   70: {
     libelle: 'Averses de pluie et neige mêlées localisées et faibles',
+    icone: 'WeatherIcon - 2-36',
+  },
+  71: {
+    libelle: 'Averses de pluie et neige mêlées localisées',
     icone: 'WeatherIcon - 2-35',
   },
   100: {
@@ -103,6 +139,14 @@ export const weatherCodes = {
     libelle: 'Orages forts et fréquents',
     icone: 'WeatherIcon - 1-14',
   },
+  130: {
+    libelle: 'Orages faibles et locaux de pluie et neige mêlées ou grésil',
+    icone: 'WeatherIcon - 2-35',
+  },
+  133: {
+    libelle: 'Orages faibles de pluie et neige mêlées ou grésil',
+    icone: 'WeatherIcon - 2-35',
+  },
   140: {
     libelle: 'Pluies orageuses',
     icone: 'WeatherIcon - 2-63',
@@ -118,5 +162,13 @@ export const weatherCodes = {
   212: {
     libelle: 'Pluie forte intermittente',
     icone: 'WeatherIcon - 2-38',
+  },
+  221: {
+    libelle: 'Neige modérée intermittente',
+    icone: 'WeatherIcon - 2-48',
+  },
+  231: {
+    libelle: 'Pluie et neige mêlées',
+    icone: 'WeatherIcon - 2-35',
   },
 }
